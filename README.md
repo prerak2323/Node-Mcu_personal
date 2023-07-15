@@ -119,7 +119,41 @@ digitalWrite(led,HIGH);
 else
 {
 digitalWrite(led,LOW); 
+
+{
 }
 }
 
 }
+
+
+-------------------------------------------------------
+
+//accessing node mcu using webpage
+
+html code
+
+<a herf="ip_add/ledon"><button>LED ON</button></a>
+<a herf="ip_add.ledoff"><button>LED OFF</button></a>
+
+just add the above code and make sure to use herf and put the correct ip add and link
+
+change
+void loop()
+{
+client.println("HTTP/1.1 200 OK"); 
+client.println("Content-Type: text/html");
+client.println("");
+client.println("<!DOCTYPE HTML>");
+client.println("<html>");
+client.println("<h1>welcome to webpage");
+client.println("<h3>LED Controls");
+client.println("<br>");
+client.println("<a herf=''><button>led on</buttion>");
+client.println("<a herf=''><button>led off</button>");
+client.println("</html>");
+
+}
+-----------------------------------
+sending data of node mcu to think speed cloud
+

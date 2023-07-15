@@ -156,4 +156,39 @@ client.println("</html>");
 }
 -----------------------------------
 sending data of node mcu to think speed cloud
+library-1.thinkspeak
+#include<ESP8266WiFi.h>
+#include<DHT.h>
+#include<ThinkSpeak.h>
 
+DHT dht(D5,DHT11);
+
+WiFiClient client;
+
+long myChannelNumber=1047069;  //Channel Id
+const char myWriteAPIKey[]="Q755JUK5LXWNFQSN";
+
+void setup()
+{
+Serial.begin(9600);
+WiFi.begin('ssid','password');
+while(WiFi.status()!=WL_CONNECTED)
+{
+delay(200);
+Serial.print("..");
+}
+Serial.println();
+Serial.println('nodemcu is connected');
+Serial.println(WiFi.localIP());
+dhr.begin();
+ThingSpeak.begin(client);
+}
+void loop()
+{
+float h=dht.readHumidity();
+float t=dht.readTemperature();
+Serial.println('temperature: '+(string) t);
+Serial.println('Humidity: '+(string) h);
+ThingSpeak.writeField(myChannelNumber,1,t,myWriteAPIKey);
+delay(2000);
+}
